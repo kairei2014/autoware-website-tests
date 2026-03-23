@@ -3,6 +3,7 @@
 [English](README.md) | [日本語](README.ja.md)
 
 ![CI](https://github.com/haili-hub/autoware-website-tests/actions/workflows/ci-e2e-tests.yml/badge.svg)
+[![テストレポート](https://img.shields.io/badge/テストレポート-GitHub%20Pages-blue)](https://haili-hub.github.io/autoware-website-tests/)
 
 Autoware ウェブサイトのナビゲーションワークフローを対象とした Playwright E2E テストです。ホームページから GitHub リポジトリの README までの一連の操作をカバーしています。
 

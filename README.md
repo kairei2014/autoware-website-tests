@@ -3,6 +3,7 @@
 [English](README.md) | [日本語](README.ja.md)
 
 ![CI](https://github.com/haili-hub/autoware-website-tests/actions/workflows/ci-e2e-tests.yml/badge.svg)
+[![Test Report](https://img.shields.io/badge/Test%20Report-GitHub%20Pages-blue)](https://haili-hub.github.io/autoware-website-tests/)
 
 Playwright end-to-end tests for the [Autoware](https://autoware.org/) website navigation workflow, covering the journey from the homepage through to the GitHub repository README.
 
