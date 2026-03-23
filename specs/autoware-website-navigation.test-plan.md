@@ -1,4 +1,4 @@
-# Autoware Website Navigation Plan
+# Autoware Website Navigation Test Plan
 
 ## Scope
 
@@ -62,19 +62,3 @@ Browser-native translation to Japanese is explicitly treated as a manual check. 
    - expect: the README body is visible
    - expect: the README contains visible heading structure
    - expect: the README contains Autoware content
-
-## Manual Scenario
-
-### 5. Browser Translation Verification to Japanese
-
-**Execution:** manual only
-
-**Steps:**
-1. Open `https://github.com/autowarefoundation/autoware`
-2. Scroll to the README section and verify the original English content is readable
-3. Use the browser's native translation feature such as `Translate to Japanese`
-4. Review the translated README
-   - expect: major headings and paragraphs are translated into Japanese
-   - expect: layout and markdown structure remain readable
-   - expect: code blocks, links, and navigation remain intact
-   - expect: technical terms remain understandable enough for a Japanese reader
