@@ -1,0 +1,18 @@
+{
+  "name": "auto-website-tests",
+  "version": "1.0.0",
+  "description": "Automated tests for Autoware website navigation",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:allure": "ALLURE=true playwright test",
+    "allure:report": "allure generate allure-results --clean -o allure-report && allure open allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0",
+    "allure-playwright": "^3.6.0"
+  }
+}
