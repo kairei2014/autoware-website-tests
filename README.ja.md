@@ -71,9 +71,26 @@ npm run allure:report
 
 デフォルトでは HTML レポーターを使用します。`npm run test:allure`（`ALLURE=true`）で Allure レポーターに切り替わります。初回リトライ時にトレースを収集します。
 
+## CI
+
+テストは `main` ブランチへのプッシュおよびプルリクエスト時に自動実行されます。
+
+ワークフローを手動でトリガーするには：
+
+1. GitHub の **Actions** → **CI — E2E Tests** を開く。
+2. **Run workflow** → **Run workflow** をクリック。
+
+または GitHub CLI を使用：
+
+```bash
+gh workflow run ci-e2e-tests.yml --repo haili-hub/autoware-website-tests
+```
+
+最新のテストレポートは各実行後に [GitHub Pages](https://haili-hub.github.io/autoware-website-tests/) へ公開されます。
+
 ## テスト計画
 
-テスト計画の詳細は `specs/autoware-website-navigation.plan.md` を参照してください。
+テスト計画の詳細は `specs/autoware-website-navigation.test-plan.md` を参照してください。
 
 ## 備考
 

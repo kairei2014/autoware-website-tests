@@ -71,9 +71,26 @@ Results are written to `reports/allure-results/` and the generated report to `re
 
 The HTML reporter is used by default. Set `ALLURE=true` (via `npm run test:allure`) to switch to the Allure reporter. Traces are collected on first retry.
 
+## CI
+
+Tests run automatically on every push and pull request to `main`.
+
+To trigger the workflow manually:
+
+1. Go to **Actions** → **CI — E2E Tests** on GitHub.
+2. Click **Run workflow** → **Run workflow**.
+
+Or via the GitHub CLI:
+
+```bash
+gh workflow run ci-e2e-tests.yml --repo haili-hub/autoware-website-tests
+```
+
+The latest test report is published to [GitHub Pages](https://haili-hub.github.io/autoware-website-tests/) after each run.
+
 ## Test plan
 
-The source test plan lives at `specs/autoware-website-navigation.plan.md`.
+The source test plan lives at `specs/autoware-website-navigation.test-plan.md`.
 
 ## Notes
 
