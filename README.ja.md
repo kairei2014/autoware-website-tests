@@ -1,4 +1,4 @@
-# auto-website-tests
+# autoware-website-tests
 
 [English](README.md) | [日本語](README.ja.md)
 
@@ -73,15 +73,10 @@ npm run allure:report
 | ナビゲーションタイムアウト | 60秒 |
 | アクションタイムアウト | 30秒 |
 | リトライ（CI） | 2回 |
+| ワーカー数（ローカル） | 1 |
 | ワーカー数（CI） | 1 |
 
-デフォルトでは HTML レポーターを使用します。`npm run test:allure`（`ALLURE=true`）で Allure レポーターに切り替わります。初回リトライ時にトレースを収集します。
-
-## GitHub
-
-リポジトリ: [haili-hub/autoware-website-tests](https://github.com/haili-hub/autoware-website-tests)
-
-最新のテストレポートは各 CI 実行後に [GitHub Pages](https://haili-hub.github.io/autoware-website-tests/) へ公開されます。
+デフォルトでは HTML レポーターを使用します。`npm run test:allure`（`ALLURE=true`）で Allure レポーターに切り替わります。初回リトライ時にトレースを収集します。ローカル実行も、外部サイト依存によるフレークを減らすためシングルワーカーで固定しています。
 
 ## CI
 
@@ -95,11 +90,33 @@ npm run allure:report
 または GitHub CLI を使用：
 
 ```bash
-gh workflow run ci-e2e-tests.yml --repo haili-hub/autoware-website-tests
+gh workflow run ci-e2e-tests.yml --repo <your-username>/autoware-website-tests
 ```
+
+`main` への CI 実行後、最新のテストレポートが GitHub Pages に公開されます。
+
+## 自分のアカウントで使う
+
+1. **フォーク** — GitHub でこのリポジトリをフォークする。
+
+2. **GitHub Pages を有効化** — フォーク先のリポジトリで次の設定を行う：
+   **Settings → Pages → Source → GitHub Actions**
+
+3. **バッジ URL を更新** — `README.md` と `README.ja.md` の先頭にある CI バッジおよびテストレポートバッジの URL 内の `haili-hub` を自分の GitHub ユーザー名に置き換える。
+
+4. **初回実行をトリガー** — `main` へコミットをプッシュするか、GitHub CLI で手動実行する：
+
+   ```bash
+   gh workflow run ci-e2e-tests.yml --repo <your-username>/autoware-website-tests
+   ```
+
+初回実行後、CI バッジが有効になり、テストレポートが `https://<your-username>.github.io/autoware-website-tests/` で公開されます。
 
 ## 備考
 
 - 自動テストが対象にしているのは、公開ホームページから GitHub の README までの導線確認です。
+- macOS のサンドボックス付き AI エージェント実行環境では、Chromium が Mach port の権限エラーで起動前に失敗することがあります。これはテスト内容ではなく実行環境の問題なので、CI またはサンドボックス外のローカル実行を使用してください。
+- **ブラウザ翻訳**（右クリック → 日本語に翻訳）はブラウザのネイティブ機能であり、Playwright では自動化できません。本テストスイートのスコープ外です。
 - `autoware.org` はバックグラウンドポーリングを使用しているため `networkidle` が解決されません。テストではデフォルトの `load` イベントを使用しています。
+- GitHub のようなサードパーティーページでは、要件が「到達先の確認」である場合はアンカーの `href` を検証してから直接遷移することを優先します。`click()` はクリック操作自体を検証したい場合に限って使用します。
 - `playwright-core` などの依存関係はローカルの `node_modules/` に配置し、GitHub にはコミットしません。clone 後に `npm ci` と `npx playwright install chromium` を実行してください。

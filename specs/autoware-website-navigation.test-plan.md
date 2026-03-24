@@ -28,8 +28,9 @@ Out of scope: browser-native translation features (e.g. right-click → Translat
 
 ## Pass / fail criteria
 
-- **Pass**: all `expect` assertions resolve within configured timeouts with no retries consumed.
+- **Pass**: all tests finish green within configured timeouts, including any configured retries.
 - **Fail**: any assertion throws, a navigation returns a non-2xx response, or the test exceeds the timeout after retries.
+- **Flake signal**: a run that only passes after retry should still be reviewed as unstable even if CI finishes green.
 
 ---
 
@@ -126,4 +127,6 @@ Out of scope: browser-native translation features (e.g. right-click → Translat
 
 - `autoware.org` uses background polling that prevents `networkidle` from resolving. All navigations use the default `load` event.
 - The GitHub organization page may open in a new tab (popup) depending on the link target attribute. The helper `clickAndFollow` handles both cases transparently.
+- GitHub repository-list pages are dynamic and can ignore a synthetic click intermittently even when the target anchor is visible. For destination-verification flows, automation should validate the repo link `href` and navigate directly instead of relying on `click()` alone.
+- The suite runs with a single worker in both local and CI execution to reduce live-site flakiness from concurrent requests.
 - CI retries are set to 2 to account for transient network latency on external sites.

@@ -1,4 +1,4 @@
-# auto-website-tests
+# autoware-website-tests
 
 [English](README.md) | [日本語](README.ja.md)
 
@@ -73,15 +73,10 @@ Results are written to `reports/allure-results/` and the generated report to `re
 | Navigation timeout | 60s |
 | Action timeout | 30s |
 | Retries (CI) | 2 |
+| Workers (Local) | 1 |
 | Workers (CI) | 1 |
 
-The HTML reporter is used by default. Set `ALLURE=true` (via `npm run test:allure`) to switch to the Allure reporter. Traces are collected on first retry.
-
-## GitHub
-
-Repository: [haili-hub/autoware-website-tests](https://github.com/haili-hub/autoware-website-tests)
-
-The latest test report is published to [GitHub Pages](https://haili-hub.github.io/autoware-website-tests/) after each CI run.
+The HTML reporter is used by default. Set `ALLURE=true` (via `npm run test:allure`) to switch to the Allure reporter. Traces are collected on first retry. Local runs also stay single-worker to reduce flake against live third-party sites.
 
 ## CI
 
@@ -95,12 +90,32 @@ To trigger the workflow manually without a new commit:
 Or via the GitHub CLI:
 
 ```bash
-gh workflow run ci-e2e-tests.yml --repo haili-hub/autoware-website-tests
+gh workflow run ci-e2e-tests.yml --repo <your-username>/autoware-website-tests
 ```
+
+The latest test report is published to GitHub Pages after each CI run on `main`.
+
+## Using this project with your own account
+
+1. **Fork** this repository on GitHub.
+
+2. **Enable GitHub Pages** in your fork:
+   **Settings → Pages → Source → GitHub Actions**
+
+3. **Update the badge URLs** in `README.md` and `README.ja.md` — replace `haili-hub` with your GitHub username in the CI badge and Test Report badge lines at the top of each file.
+
+4. **Trigger the first run** by pushing any commit to `main`, or manually via GitHub CLI:
+
+   ```bash
+   gh workflow run ci-e2e-tests.yml --repo <your-username>/autoware-website-tests
+   ```
+
+After the first run the CI badge resolves and the test report is live at `https://<your-username>.github.io/autoware-website-tests/`.
 
 ## Notes
 
 - The automated suite verifies the public homepage-to-GitHub-to-README journey only.
-- **Browser translation** (right-click › Translate to Japanese) is a browser-native feature and cannot be automated via Playwright. It is out of scope for this suite.
+- In sandboxed macOS AI-agent sessions, Chromium can fail before launch with a Mach port permission error. Treat that as an execution-environment issue; run the suite in CI or a non-sandboxed local session instead.
 - `autoware.org` uses background polling that prevents `networkidle` from ever resolving; tests use the default `load` event instead.
+- For third-party pages such as GitHub, prefer validating the anchor `href` and navigating directly when the requirement is destination reachability. Use `click()` only when the click interaction itself is what the test must verify.
 - Dependencies such as `playwright-core` stay in the local `node_modules/` directory and are not committed to GitHub. After cloning, users should run `npm ci` and `npx playwright install chromium`.

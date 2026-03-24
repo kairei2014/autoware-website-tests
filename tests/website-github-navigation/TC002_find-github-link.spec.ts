@@ -1,4 +1,4 @@
-// spec: specs/autoware-website-navigation.plan.md
+// spec: specs/autoware-website-navigation.test-plan.md
 import { test, expect } from '@playwright/test';
 import { AUTOWARE_GITHUB_ORG_URL, clickHomepageGitHubLink } from './helpers';
 
