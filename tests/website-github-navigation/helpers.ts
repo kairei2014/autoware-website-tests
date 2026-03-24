@@ -74,7 +74,13 @@ export async function openAutowareRepoFromHome(page: Page): Promise<Page> {
 
   const autowareRepoLink = orgPage.locator('a[href="/autowarefoundation/autoware"]').first();
   await expect(autowareRepoLink).toBeVisible();
-  await autowareRepoLink.click();
+  const repoHref = await autowareRepoLink.getAttribute('href');
+  expect(repoHref).toBeTruthy();
+
+  // GitHub's repositories view intermittently ignores the synthetic click even
+  // though the anchor is visible. Follow the resolved href directly instead.
+  const response = await orgPage.goto(`https://github.com${repoHref!}`);
+  expect(response?.ok()).toBeTruthy();
   await expect(orgPage).toHaveURL(/github\.com\/autowarefoundation\/autoware\/?$/);
 
   return orgPage;
