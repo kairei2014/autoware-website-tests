@@ -1,8 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export const AUTOWARE_HOME_URL = 'https://autoware.org/';
-export const AUTOWARE_GITHUB_ORG_URL = 'https://github.com/autowarefoundation';
-export const AUTOWARE_REPO_URL = 'https://github.com/autowarefoundation/autoware';
 
 export async function gotoAutowareHome(page: Page) {
   const response = await page.goto(AUTOWARE_HOME_URL);

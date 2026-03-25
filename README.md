@@ -73,14 +73,20 @@ Results are written to `reports/allure-results/` and the generated report to `re
 | Navigation timeout | 60s |
 | Action timeout | 30s |
 | Retries (CI) | 2 |
-| Workers (Local) | 1 |
-| Workers (CI) | 1 |
+| Workers | 1 |
+| Parallel | off |
 
-The HTML reporter is used by default. Set `ALLURE=true` (via `npm run test:allure`) to switch to the Allure reporter. Traces are collected on first retry. Local runs also stay single-worker to reduce flake against live third-party sites.
+The HTML reporter is used by default. Set `ALLURE=true` (via `npm run test:allure`) to switch to the Allure reporter. Traces are collected on first retry. Single-worker serial execution reduces flake against live third-party sites.
 
 ## CI
 
 Every commit pushed to `main` automatically triggers the CI workflow — no separate step needed. Tests also run on pull requests to `main`.
+
+After a push to `main`, the workflow proceeds in this order:
+
+1. `git push origin main` starts **CI — E2E Tests**.
+2. The `test` job runs the Playwright suite on GitHub Actions.
+3. The `deploy` job runs after `test` and publishes the latest HTML report to GitHub Pages.
 
 To trigger the workflow manually without a new commit:
 
@@ -115,6 +121,7 @@ After the first run the CI badge resolves and the test report is live at `https:
 ## Notes
 
 - The automated suite verifies the public homepage-to-GitHub-to-README journey only.
+- **Browser translation** (right-click › Translate to Japanese) is a browser-native feature and cannot be automated via Playwright. It is out of scope for this suite.
 - In sandboxed macOS AI-agent sessions, Chromium can fail before launch with a Mach port permission error. Treat that as an execution-environment issue; run the suite in CI or a non-sandboxed local session instead.
 - `autoware.org` uses background polling that prevents `networkidle` from ever resolving; tests use the default `load` event instead.
 - For third-party pages such as GitHub, prefer validating the anchor `href` and navigating directly when the requirement is destination reachability. Use `click()` only when the click interaction itself is what the test must verify.
