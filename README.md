@@ -121,7 +121,6 @@ After the first run the CI badge resolves and the test report is live at `https:
 ## Notes
 
 - The automated suite verifies the public homepage-to-GitHub-to-README journey only.
-- **Browser translation** (right-click › Translate to Japanese) is a browser-native feature and cannot be automated via Playwright. It is out of scope for this suite.
 - In sandboxed macOS AI-agent sessions, Chromium can fail before launch with a Mach port permission error. Treat that as an execution-environment issue; run the suite in CI or a non-sandboxed local session instead.
 - `autoware.org` uses background polling that prevents `networkidle` from ever resolving; tests use the default `load` event instead.
 - For third-party pages such as GitHub, prefer validating the anchor `href` and navigating directly when the requirement is destination reachability. Use `click()` only when the click interaction itself is what the test must verify.
