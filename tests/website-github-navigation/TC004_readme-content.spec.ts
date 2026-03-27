@@ -7,7 +7,6 @@ test.describe('GitHub Navigation Workflow', () => {
     const repoPage = await openAutowareRepoFromHome(page);
 
     const readmeBody = repoPage.locator('#readme .markdown-body, article.markdown-body').first();
-    await readmeBody.scrollIntoViewIfNeeded();
     await expect(readmeBody).toBeVisible();
 
     await expect(readmeBody.locator('h1, h2, h3').first()).toBeVisible();
