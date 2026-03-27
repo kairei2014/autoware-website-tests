@@ -65,7 +65,7 @@ npm run allure:report
 
 ## 設定
 
-`playwright.config.ts` では Chromium のみを使用し、`autoware.org` の読み込みに対応するため以下のタイムアウトを設定しています：
+`playwright.config.ts` では Chromium、Firefox、WebKit（Safari）を使用し、`autoware.org` の読み込みに対応するため以下のタイムアウトを設定しています：
 
 | 設定項目 | 値 |
 | -------- | -- |

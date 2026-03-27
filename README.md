@@ -65,7 +65,7 @@ Results are written to `reports/allure-results/` and the generated report to `re
 
 ## Configuration
 
-`playwright.config.ts` configures Chromium-only execution, with the following timeouts to accommodate the `autoware.org` site load:
+`playwright.config.ts` configures execution across Chromium, Firefox and WebKit (Safari), with the following timeouts to accommodate the `autoware.org` site load:
 
 | Setting | Value |
 | ------- | ----- |
