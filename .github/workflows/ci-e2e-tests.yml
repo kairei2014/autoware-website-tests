@@ -74,7 +74,12 @@ jobs:
 
   deploy:
     needs: test
-    if: always() && github.ref == 'refs/heads/main'
+    if: >-
+      always() && (
+        github.ref == 'refs/heads/main' ||
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false)
+      )
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
