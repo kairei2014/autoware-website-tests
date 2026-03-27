@@ -101,6 +101,16 @@ gh workflow run ci-e2e-tests.yml --repo <your-username>/autoware-website-tests
 
 `main` への CI 実行後、最新のテストレポートが GitHub Pages に公開されます。
 
+## GitHub Copilot Code Agent
+
+このリポジトリには、Copilot 用の実行環境を準備する専用ワークフロー `.github/workflows/copilot-setup-steps.yml` も含まれています。
+
+- 目的: GitHub 上の実行環境に Node 依存関係と Playwright Chromium を用意し、Copilot のコーディング作業でもローカル開発に近い前提をそろえること。
+- 実行内容: `actions/checkout`、`actions/setup-node`、`npm ci`、`npx playwright install --with-deps chromium`。
+- 実行タイミング: 手動の `workflow_dispatch`、または `.github/workflows/copilot-setup-steps.yml` 自体が push / pull request で変更されたとき。
+- 通常の開発で必要なこと: 特になし。通常のテスト検証は引き続き **CI — E2E Tests** を使用します。
+- 意識する場面: GitHub Copilot の coding agent を使う場合、またはそのセットアップ用ワークフローを保守する場合のみ。
+
 ## 自分のアカウントで使う
 
 1. **フォーク** — GitHub でこのリポジトリをフォークする。
