@@ -2,8 +2,8 @@
 
 [English](README.md) | [日本語](README.ja.md)
 
-![CI](https://github.com/haili-hub/autoware-website-tests/actions/workflows/ci-e2e-tests.yml/badge.svg)
-[![Test Report](https://img.shields.io/badge/Test%20Report-GitHub%20Pages-blue)](https://haili-hub.github.io/autoware-website-tests/)
+![CI](https://github.com/kairei2014/autoware-website-tests/actions/workflows/ci-e2e-tests.yml/badge.svg)
+[![Test Report](https://img.shields.io/badge/Test%20Report-GitHub%20Pages-blue)](https://kairei2014.github.io/autoware-website-tests/)
 
 ## Summary
 
